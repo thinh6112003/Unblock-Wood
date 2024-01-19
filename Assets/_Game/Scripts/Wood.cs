@@ -7,117 +7,194 @@ public class Wood : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int mouseRange;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private WoodType woodType;
+    [SerializeField] private float scalePoint;
+    [SerializeField] private LayerMask woodLayer;
+
+    public bool checkMove = false;
 
     private Vector3 targetPos;
 
-    private Wood wood;
+    public Wood wood;
 
-    private bool mouseDown;
+    public Direction direc;
 
-    private Vector2 startPos;
+    public bool isKinematic;
 
-    private void Awake()
-    {
-        wood = GetComponent<Wood>();
-    }
 
     private void OnMouseDown()
     {
         wood = this;
     }
 
-    private void Start()
-    {
-        targetPos = transform.position;
-    }
+    //private void OnMouseDrag()
+    //{
+    //    wood = this;
+    //    wood.transform.position = Vector2.MoveTowards(wood.transform.position, Input.mousePosition, Time.deltaTime * speed);
+    //}
+
+    //private void Update()
+    //{
+    //if (mouseDown == false && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+    //{
+    //    startPos = Input.touches[0].position;
+    //    mouseDown = true;
+    //}
+
+    //if (mouseDown)
+    //{
+    //    if (Input.touches[0].position.y >= startPos.y + mouseRange)
+    //    {
+    //        mouseDown = false;
+    //        Debug.Log("Swipe Up");
+    //        wood.Move(Vector3.up);
+    //    }
+    //    else if (Input.touches[0].position.y <= startPos.y - mouseRange)
+    //    {
+    //        mouseDown = false;
+    //        Debug.Log("Swipe down");
+    //        wood.Move(Vector3.down);
+    //    }
+    //    else if (Input.touches[0].position.x <= startPos.x - mouseRange)
+    //    {
+    //        mouseDown = false;
+    //        Debug.Log("Swipe left");
+    //        wood.Move(Vector3.left);
+    //    }
+    //    else if (Input.touches[0].position.x >= startPos.x + mouseRange)
+    //    {
+    //        mouseDown = false;
+    //        Debug.Log("Swipe right");
+    //        wood.Move(Vector3.right);
+    //    }
+    //}
+
+    //if (mouseDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
+    //{
+    //    mouseDown = false;
+    //}
+
+    // PC
+
+    //    if (mouseDown == false && Input.GetMouseButtonDown(0))
+    //    {
+    //        startPos = Input.mousePosition;
+    //        mouseDown = true;
+    //    }
+
+    //    if (mouseDown)
+    //    {
+    //        if (Input.mousePosition.y >= startPos.y + mouseRange)
+    //        {
+    //            mouseDown = false;
+    //            Debug.Log("Swipe up");
+    //            Move(Vector3.up);
+    //            Debug.Log(wood.gameObject.name);
+    //        }
+    //        else if (Input.mousePosition.y <= startPos.y - mouseRange)
+    //        {
+    //            mouseDown = false;
+    //            Debug.Log("Swipe down");
+    //            Move(Vector3.down);
+    //        }
+    //        else if (Input.mousePosition.x <= startPos.x - mouseRange)
+    //        {
+    //            mouseDown = false;
+    //            Debug.Log("Swipe left");
+    //            Move(Vector3.left);
+    //        }
+    //        else if (Input.mousePosition.x >= startPos.x + mouseRange)
+    //        {
+    //            mouseDown = false;
+    //            Debug.Log("Swipe right");
+    //            Move(Vector3.right);
+    //        }
+    //    }
+
+    //    if (mouseDown && Input.GetMouseButtonUp(0))
+    //    {
+    //        mouseDown = false;
+    //    }
+
+    //    transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+    //}
 
     private void Update()
     {
-        //if (mouseDown == false && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
-        //{
-        //    startPos = Input.touches[0].position;
-        //    mouseDown = true;
-        //}
-
-        //if (mouseDown)
-        //{
-        //    if (Input.touches[0].position.y >= startPos.y + mouseRange)
-        //    {
-        //        mouseDown = false;
-        //        Debug.Log("Swipe Up");
-        //        wood.Move(Vector3.up);
-        //    }
-        //    else if (Input.touches[0].position.y <= startPos.y - mouseRange)
-        //    {
-        //        mouseDown = false;
-        //        Debug.Log("Swipe down");
-        //        wood.Move(Vector3.down);
-        //    }
-        //    else if (Input.touches[0].position.x <= startPos.x - mouseRange)
-        //    {
-        //        mouseDown = false;
-        //        Debug.Log("Swipe left");
-        //        wood.Move(Vector3.left);
-        //    }
-        //    else if (Input.touches[0].position.x >= startPos.x + mouseRange)
-        //    {
-        //        mouseDown = false;
-        //        Debug.Log("Swipe right");
-        //        wood.Move(Vector3.right);
-        //    }
-        //}
-
-        //if (mouseDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
-        //{
-        //    mouseDown = false;
-        //}
-
-        // PC
-
-        if (mouseDown == false && Input.GetMouseButtonDown(0))
+        if (checkMove)
         {
-            startPos = Input.mousePosition;
-            mouseDown = true;
-        }
-
-        if (mouseDown)
-        {
-            if (Input.mousePosition.y >= startPos.y + mouseRange)
+            if (woodType == WoodType.Horizontal)
             {
-                mouseDown = false;
-                Debug.Log("Swipe up");
-                wood.Move(Vector3.up);
+                switch (direc)
+                {
+                    case Direction.Up:
+                        transform.Translate(Vector3.up * 0.1f);
+                        break;
+                    case Direction.Down:
+                        transform.Translate(Vector3.down * 0.1f);
+                        break;
+                    default:
+                        break;
+                }
             }
-            else if (Input.mousePosition.y <= startPos.y - mouseRange)
+            else
             {
-                mouseDown = false;
-                Debug.Log("Swipe down");
-                wood.Move(Vector3.down);
-            }
-            else if (Input.mousePosition.x <= startPos.x - mouseRange)
-            {
-                mouseDown = false;
-                Debug.Log("Swipe left");
-                wood.Move(Vector3.left);
-            }
-            else if (Input.mousePosition.x >= startPos.x + mouseRange)
-            {
-                mouseDown = false;
-                Debug.Log("Swipe right");
-                wood.Move(Vector3.right);
+                switch (direc)
+                {
+                    case Direction.Left:
+                        transform.Translate(Vector3.left * 0.1f);
+                        break;
+                    case Direction.Right:
+                        transform.Translate(Vector3.right * 0.1f);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-
-        if (mouseDown && Input.GetMouseButtonUp(0))
-        {
-            mouseDown = false;
-        }
-
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);   
     }
 
-    public void Move(Vector3 moveDirection)
+    //public void Move(Vector3 moveDirection)
+    //{
+    //    targetPos += moveDirection;
+    //}
+
+    public void CheckRaycast(Vector3 direc)
     {
-        targetPos += moveDirection;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direc, scalePoint, woodLayer);
+
+        if (hit.collider != null)
+        {
+            Debug.Log("!null");
+            checkMove = false;
+            Debug.Log(hit.collider.name);
+        }
+        else
+        {
+            Debug.Log("null");
+            checkMove = true;
+        }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector3.left);
+    }
+}
+
+
+public enum Direction
+{
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+public enum WoodType
+{
+    Vertical,
+    Horizontal
 }
