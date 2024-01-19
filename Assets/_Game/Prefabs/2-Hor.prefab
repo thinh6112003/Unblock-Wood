@@ -76,14 +76,12 @@ MonoBehaviour:
   mouseRange: 20
   rb: {fileID: 0}
   woodType: 1
-  scalePoint: 0.7
+  scalePoint: 5
   woodLayer:
     serializedVersion: 2
     m_Bits: 8
   checkMove: 0
-  wood: {fileID: 0}
   direc: 0
-  isKinematic: 0
 --- !u!1001 &4641362256536216331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105,7 +103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2662053573858025387, guid: 6f07319f2e854c84f977f7e3bf94c1d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.017458618
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2662053573858025387, guid: 6f07319f2e854c84f977f7e3bf94c1d8, type: 3}
       propertyPath: m_LocalRotation.w

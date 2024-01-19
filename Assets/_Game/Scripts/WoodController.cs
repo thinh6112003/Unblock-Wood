@@ -82,32 +82,32 @@ public class WoodController : MonoBehaviour
                 mouseDown = false;
                 Debug.Log("Swipe up");
                 wood.direc = Direction.Up;
-                //wood.CheckRaycast(Vector3.up);
-                wood.checkMove = true;
+                wood.CheckRaycast(Vector3.up);
+                //wood.checkMove = true;
             }
             else if (Input.mousePosition.y <= startPos.y - mouseRange)
             {
                 mouseDown = false;
                 Debug.Log("Swipe down");
                 wood.direc = Direction.Down;
-                //wood.CheckRaycast(Vector3.down);
-                wood.checkMove = true;
+                wood.CheckRaycast(Vector3.down);
+                //wood.checkMove = true;
             }
             else if (Input.mousePosition.x <= startPos.x - mouseRange)
             {
                 mouseDown = false;
                 Debug.Log("Swipe left");
                 wood.direc = Direction.Left;
-                //wood.CheckRaycast(Vector3.left);
-                wood.checkMove = true;
+                wood.CheckRaycast(Vector3.left);
+                //wood.checkMove = true;
             }
             else if (Input.mousePosition.x >= startPos.x + mouseRange)
             {
                 mouseDown = false;
                 Debug.Log("Swipe right");
                 wood.direc = Direction.Right;
-                //wood.CheckRaycast(Vector3.right);
-                wood.checkMove = true;
+                wood.CheckRaycast(Vector3.right);
+                //wood.checkMove = true;
             }
         }
 

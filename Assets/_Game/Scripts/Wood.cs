@@ -16,17 +16,7 @@ public class Wood : MonoBehaviour
 
     private Vector3 targetPos;
 
-    public Wood wood;
-
     public Direction direc;
-
-    public bool isKinematic;
-
-
-    private void OnMouseDown()
-    {
-        wood = this;
-    }
 
     //private void OnMouseDrag()
     //{
@@ -129,10 +119,10 @@ public class Wood : MonoBehaviour
                 switch (direc)
                 {
                     case Direction.Up:
-                        transform.Translate(Vector3.up * 0.1f);
+                        transform.Translate(Vector3.up * 0.01f);
                         break;
                     case Direction.Down:
-                        transform.Translate(Vector3.down * 0.1f);
+                        transform.Translate(Vector3.down * 0.01f);
                         break;
                     default:
                         break;
@@ -143,10 +133,10 @@ public class Wood : MonoBehaviour
                 switch (direc)
                 {
                     case Direction.Left:
-                        transform.Translate(Vector3.left * 0.1f);
+                        transform.Translate(Vector3.left * 0.01f);
                         break;
                     case Direction.Right:
-                        transform.Translate(Vector3.right * 0.1f);
+                        transform.Translate(Vector3.right * 0.01f);
                         break;
                     default:
                         break;
@@ -162,13 +152,18 @@ public class Wood : MonoBehaviour
 
     public void CheckRaycast(Vector3 direc)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direc, scalePoint, woodLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (Vector2)direc, scalePoint, woodLayer);
+
+        //Debug.DrawLine(transform.position, transform.position + direc * scalePoint, Color.red);
+        //Debug.Log(scalePoint);
+        //Debug.Log(direc);
+        //Debug.Log(transform.position);
 
         if (hit.collider != null)
         {
+            Debug.Log(hit.collider.name);
             Debug.Log("!null");
             checkMove = false;
-            Debug.Log(hit.collider.name);
         }
         else
         {
@@ -177,11 +172,12 @@ public class Wood : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, Vector3.left);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawRay(transform.position, Vector3.left);
+    //}
+
 }
 
 

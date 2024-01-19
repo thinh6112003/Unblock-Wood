@@ -76,14 +76,12 @@ MonoBehaviour:
   mouseRange: 20
   rb: {fileID: 0}
   woodType: 1
-  scalePoint: 1
+  scalePoint: 5
   woodLayer:
     serializedVersion: 2
     m_Bits: 8
   checkMove: 0
-  wood: {fileID: 0}
   direc: 0
-  isKinematic: 0
 --- !u!1001 &5671852759394081895
 PrefabInstance:
   m_ObjectHideFlags: 0
