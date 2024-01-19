@@ -76,7 +76,7 @@ MonoBehaviour:
   mouseRange: 20
   rb: {fileID: 0}
   woodType: 1
-  scalePoint: 5
+  scalePoint: 1
   woodLayer:
     serializedVersion: 2
     m_Bits: 8

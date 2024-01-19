@@ -114,15 +114,18 @@ public class Wood : MonoBehaviour
     {
         if (checkMove)
         {
+            Vector3 direcv3= Vector3.zero;
             if (woodType == WoodType.Horizontal)
             {
                 switch (direc)
                 {
                     case Direction.Up:
-                        transform.Translate(Vector3.up * 0.01f);
+                        direcv3 = Vector2.up;
+                        transform.Translate(Vector3.up * 0.05f);
                         break;
                     case Direction.Down:
-                        transform.Translate(Vector3.down * 0.01f);
+                        direcv3 = Vector2.down;
+                        transform.Translate(Vector3.down * 0.05f);
                         break;
                     default:
                         break;
@@ -133,14 +136,24 @@ public class Wood : MonoBehaviour
                 switch (direc)
                 {
                     case Direction.Left:
-                        transform.Translate(Vector3.left * 0.01f);
+                        direcv3 = Vector2.left;
+                        transform.Translate(Vector3.left * 0.05f);
                         break;
                     case Direction.Right:
-                        transform.Translate(Vector3.right * 0.01f);
+                        direcv3 = Vector2.right;
+                        transform.Translate(Vector3.right * 0.05f);
                         break;
                     default:
                         break;
                 }
+            }
+
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (Vector2)direcv3, scalePoint-0.07f, woodLayer);
+            gameObject.GetComponent<Collider2D>().enabled = true;
+            if (hit)
+            {
+                checkMove = false;
             }
         }
     }
@@ -152,8 +165,9 @@ public class Wood : MonoBehaviour
 
     public void CheckRaycast(Vector3 direc)
     {
+        gameObject.GetComponent<Collider2D>().enabled= false;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, (Vector2)direc, scalePoint, woodLayer);
-
+        gameObject.GetComponent<Collider2D>().enabled = true;
         //Debug.DrawLine(transform.position, transform.position + direc * scalePoint, Color.red);
         //Debug.Log(scalePoint);
         //Debug.Log(direc);
@@ -161,7 +175,9 @@ public class Wood : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
+            Debug.Log("name"+hit.collider.name);
+            Debug.Log("position"+transform.position);
+            Debug.Log("direc" + direc);
             Debug.Log("!null");
             checkMove = false;
         }
